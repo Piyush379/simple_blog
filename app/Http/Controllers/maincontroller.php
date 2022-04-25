@@ -9,10 +9,12 @@ use App\Models\Blog;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeNotification;
+use App\Http\Requests\StoreUser;
+use App\Http\Requests\logincheck;
 
 class maincontroller extends Controller
 {
-    public function register(Request $req){
+    public function register(StoreUser $req){
         $data=new User;
         
         $data->name=$req->name;
@@ -34,7 +36,7 @@ class maincontroller extends Controller
         return redirect("login");
     }
 
-    public function logincheck(Request $req){
+    public function logincheck(logincheck $req){
         $email=$req->email;
         $password=$req->password;
         $result=User::where(['email'=>$email,'password'=>$password])->first();

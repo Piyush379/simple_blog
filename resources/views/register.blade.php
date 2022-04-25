@@ -18,22 +18,29 @@
 <div class="mb-3">
   <label class="form-label">Name</label>
   <input type="text" name="name" class="form-control" >
+  <span  style="color:red;">@error('name'){{$message}}@enderror</span><br>
+
 </div>
 
 <div class="mb-3">
   <label  class="form-label">Email address</label>
   <input type="email" name="email" class="form-control"  aria-describedby="emailHelp">
   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <span  style="color:red;">@error('email'){{$message}}@enderror</span><br>
+
 </div>
 
 <div class="mb-3">
   <label class="form-label">Password</label>
   <input type="password" name="password" class="form-control">
+  <span  style="color:red;">@error('password'){{$message}}@enderror</span>
 </div>
 
 <div class="mb-3">
   <label class="form-label">Profile pic</label>
   <input type="file" name="pic" class="form-control" ></input>
+  <span  style="color:red;">@error('pic'){{$message}}@enderror</span><br>
+
 </div>
 
 <button type="submit" class="btn btn-primary">Submit</button><br><br>
