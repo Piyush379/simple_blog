@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeNotification;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\logincheck;
+use Illuminate\Support\Facades\Hash;
 
 class maincontroller extends Controller
 {
+    
     public function register(StoreUser $req){
         $data=new User;
         
         $data->name=$req->name;
         $data->email=$req->email;
         $data->password=$req->password;
+        $data->password=Hash::make($data['password']);  //by hashing
         if($req->hasfile("pic")){
             $new=$req->file('pic');
         
@@ -39,8 +42,8 @@ class maincontroller extends Controller
     public function logincheck(logincheck $req){
         $email=$req->email;
         $password=$req->password;
-        $result=User::where(['email'=>$email,'password'=>$password])->first();
-        if($result){
+        $result=User::where(['email'=>$email])->first();
+        if(Hash::check($req->password,$result->password)){
                 $req->session()->put('ADMIN_LOGIN',true);
                 $req->session()->put('ADMIN_EMAIL',$req->email);
                 session(['key' => $req->email]);
