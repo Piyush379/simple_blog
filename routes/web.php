@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\maincontroller;
 
 /*
@@ -15,6 +16,7 @@ use App\Http\Controllers\maincontroller;
 */
 
 Route::get('/', function () {
+    Log::emergency('log activated');
     return view('welcome');
 });
 

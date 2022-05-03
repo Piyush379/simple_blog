@@ -7,6 +7,7 @@ use App\Models\User;
 use Storage;
 use App\Models\Blog;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeNotification;
 use App\Http\Requests\StoreUser;
@@ -47,6 +48,7 @@ class maincontroller extends Controller
                 $req->session()->put('ADMIN_LOGIN',true);
                 $req->session()->put('ADMIN_EMAIL',$req->email);
                 session(['key' => $req->email]);
+                Log::channel('mydailylogs')->info('login by:'.$email);
                 return redirect('dashboard');
         }
         else{
