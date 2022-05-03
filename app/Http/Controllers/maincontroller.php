@@ -18,6 +18,14 @@ class maincontroller extends Controller
 {
     
     public function register(StoreUser $req){
+        
+        $result=User::where(['email'=>$req->email])->first();
+        // return $result;
+        if($result!=null){
+            $req->session()->flash('error','Please enter an new email');
+            return redirect("register");
+        }
+        else{
         $data=new User;
         
         $data->name=$req->name;
@@ -39,12 +47,14 @@ class maincontroller extends Controller
 
         return redirect("login");
     }
+    }
 
     public function logincheck(logincheck $req){
         $email=$req->email;
         $password=$req->password;
         $result=User::where(['email'=>$email])->first();
-        if(Hash::check($req->password,$result->password)){
+        // return $result;
+        if($result!=null && Hash::check($req->password,$result->password)){
                 $req->session()->put('ADMIN_LOGIN',true);
                 $req->session()->put('ADMIN_EMAIL',$req->email);
                 session(['key' => $req->email]);
